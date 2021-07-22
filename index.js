@@ -1,26 +1,23 @@
-// Queue up the required js files
 const inquirer = require('inquirer');
 const fs = require('fs')
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
-const employee = require('./lib/Employee');
 const { exit } = require('process');
 
 const engineers = []
 const interns = []
 const manager = []
-let team = [manager,engineers,interns]
 
 const main = async ()=>{
   const {choice} = await inquirer.prompt({
     type: "list",
     name: "choice",
-    message: "Build your amazing team",
-    choices: ["Add/edit the Manager","Add an Engineer","Add an Intern","EXPORT HTML File", new inquirer.Separator(), "Exit"]
+    message: "Welcome to TeamBuilder",
+    choices: ["Add/replace the Manager","Add an Engineer","Add an Intern",new inquirer.Separator(),"EXPORT team list to HTML",new inquirer.Separator(), "Exit"]
   })
   switch (choice) {
-    case "Add/edit the Manager":
+    case "Add/replace the Manager":
       addManager()
       break;
     case "Add an Engineer":
@@ -29,7 +26,7 @@ const main = async ()=>{
     case "Add an Intern":
       addIntern()
       break;
-    case "EXPORT HTML File":
+    case "EXPORT team list to HTML":
       exportHtml()
       break;
     case "Exit":
@@ -67,8 +64,6 @@ const addManager = async ()=>{
     const newManager = new Manager(name,id,email,officeNumber)
     manager.pop();
     manager.push(newManager);
-    console.log('Manager info updated!')
-    console.log(team)
     main()
 }
 
@@ -124,8 +119,6 @@ const addIntern = async ()=>{
   
   const newIntern = new Intern(name,id,email,school)
   interns.push(newIntern);
-  console.log('Engineer added!')
-  console.log(team)
   main()
 }
 
@@ -150,7 +143,7 @@ let teamPageContent = `
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 jumbotron mb-3 team-heading">
-                <h1 class="text-center">My Team</h1>
+                <h1 class="text-center">My Amazing Team</h1>
             </div>
         </div>
     </div>
@@ -167,7 +160,7 @@ let teamPageContent = `
 </html>
     `;    
 
-    fs.writeFile('./testing/output.html', teamPageContent, (err) =>
+    fs.writeFile('./output/team-roster.html', teamPageContent, (err) =>
       err ? console.log(err) : console.log('Successfully created HTML file!')
     );
 }
@@ -181,7 +174,7 @@ function generateManager() {
   </div>
   <div class="card-body">
       <ul class="list-group">
-          <li class="list-group-item">ID: ${manager[0].email}</li>
+          <li class="list-group-item">ID: ${manager[0].id}</li>
           <li class="list-group-item">Email: <a href="mailto:${manager[0].email}">${manager[0].email}</a></li>
           <li class="list-group-item">Office number: ${manager[0].officeNumber}</li>
       </ul>
@@ -201,9 +194,9 @@ for (let i = 0; i < engineers.length; i++) {
         </div>
         <div class="card-body">
             <ul class="list-group">
-                <li class="list-group-item">ID: ${engineers[i].email}</li>
+                <li class="list-group-item">ID: ${engineers[i].id}</li>
                 <li class="list-group-item">Email: <a href="mailto:${engineers[i].email}">${engineers[i].email}</a></li>
-                <li class="list-group-item">Office number: ${engineers[i].github}</li>
+                <li class="list-group-item">Github: <a href="https://github.com/${engineers[i].github}" target="_blank">${engineers[i].github}</a></li>
             </ul>
         </div>
         </div>
@@ -212,7 +205,6 @@ for (let i = 0; i < engineers.length; i++) {
   return innerHtml
 }
 
-
 function generateInterns() {
 let innerHtml = ''
 for (let i = 0; i < interns.length; i++) {
@@ -220,13 +212,13 @@ for (let i = 0; i < interns.length; i++) {
 `    <div class="card employee-card">
         <div class="card-header">
             <h2 class="card-title">${interns[i].name}</h2>
-            <h3 class="card-title"><i class="fas fa-mug-hot mr-2"></i>${interns[i].role}</h3>
+            <h3 class="card-title"><i class="far fa-file-code mr-2"></i>${interns[i].role}</h3>
         </div>
         <div class="card-body">
             <ul class="list-group">
-                <li class="list-group-item">ID: ${interns[i].email}</li>
+                <li class="list-group-item">ID: ${interns[i].id}</li>
                 <li class="list-group-item">Email: <a href="mailto:${interns[i].email}">${interns[i].email}</a></li>
-                <li class="list-group-item">Office number: ${interns[i].github}</li>
+                <li class="list-group-item">School: <a href="https://www.google.com/search?q=${interns[i].school}" target="_blank">${interns[i].school}</a></li>
             </ul>
         </div>
         </div>
