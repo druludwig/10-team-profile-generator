@@ -9,15 +9,21 @@ const engineers = []
 const interns = []
 const manager = []
 
+const intro = async ()=>{
+  console.log('Welcome to TeamBuilder!')
+  addManager();
+}
+
 const main = async ()=>{
+  console.log('---------------')
   const {choice} = await inquirer.prompt({
     type: "list",
     name: "choice",
-    message: "Welcome to TeamBuilder",
-    choices: ["Add/replace the Manager","Add an Engineer","Add an Intern",new inquirer.Separator(),"EXPORT team list to HTML",new inquirer.Separator(), "Exit"]
+    message: "TeamBuilder Menu:",
+    choices: ["Replace the Manager","Add an Engineer","Add an Intern",new inquirer.Separator(),"EXPORT team list to HTML",new inquirer.Separator(), "Exit"]
   })
   switch (choice) {
-    case "Add/replace the Manager":
+    case "Replace the Manager":
       addManager()
       break;
     case "Add an Engineer":
@@ -34,7 +40,6 @@ const main = async ()=>{
     default:
       console.log('The program closed. Please restart.')
       break;
-
   }
  
 }
@@ -161,7 +166,7 @@ let teamPageContent = `
     `;    
 
     fs.writeFile('./output/team-roster.html', teamPageContent, (err) =>
-      err ? console.log(err) : console.log('Successfully created HTML file!')
+      err ? console.log(err) : console.log('Exported HTML file to output folder!')
     );
 }
 
@@ -227,4 +232,4 @@ for (let i = 0; i < interns.length; i++) {
   return innerHtml  
   }
 
-main()
+intro()
