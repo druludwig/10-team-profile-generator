@@ -156,9 +156,13 @@ let teamPageContent = `
         <div class="row">
             <div class="team-area col-12 d-flex justify-content-center">
                 ${generateManager()}
+                </div>
+            <div class="team-area col-12 d-flex justify-content-center">
                 ${generateEngineers()}
+                </div>
+            <div class="team-area col-12 d-flex justify-content-center">
                 ${generateInterns()}
-            </div>
+                </div>
         </div>
     </div>
 </body>
