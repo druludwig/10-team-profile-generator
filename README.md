@@ -5,7 +5,7 @@
   ## Description<br />
   A command-line app that turns user input into a working team directory.<br />
   ## Personal Notes
-  This project was another significant stepping stone in my personal progress. I may have taken an unconventional approach in a few places, but I'm proud I got it to work.
+  This project was another significant step in my personal progress. I tried to challenge myself by diverting somewhat from the starter code and making something of my own.
  
   ## Installation<br />
   This app does not have an accessible UI and is not yet intended for distribution.<br />
