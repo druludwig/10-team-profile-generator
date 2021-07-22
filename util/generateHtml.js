@@ -1,3 +1,10 @@
+const path = require("path");
+const fs = require("fs");
+const Manager = require("../lib/Manager");
+const Engineer = require('../lib/Engineer');
+const Intern = require('../lib/Intern');
+const employee = require('../lib/Employee');
+
 // create the team
 const generateTeam = team => {
 
@@ -61,16 +68,16 @@ const generateTeam = team => {
     const html = [];
 
     html.push(team
-        .filter(employee => employee.getRole() === "Manager")
+        .filter(team => team.role === "Manager")
         .map(manager => generateManager(manager))
     );
     html.push(team
-        .filter(employee => employee.getRole() === "Engineer")
+        .filter(team => team.role === "Engineer")
         .map(engineer => generateEngineer(engineer))
         .join("")
     );
     html.push(team
-        .filter(employee => employee.getRole() === "Intern")
+        .filter(team => team.role === "Intern")
         .map(intern => generateIntern(intern))
         .join("")
     );
